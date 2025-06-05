@@ -1,0 +1,118 @@
+# caesar_cipher.py
+
+def caesar_encrypt(text, shift):
+    """
+    Encrypt the input text using Caesar Cipher.
+    Only alphabetic characters are shifted; other characters remain unchanged.
+    """
+    result = ""
+    for char in text:
+        if char.isalpha():
+            # Determine ASCII base depending on case
+            shift_base = ord('A') if char.isupper() else ord('a')
+            # Shift character and wrap around using modulo 26
+            shifted = (ord(char) - shift_base + shift) % 26 + shift_base
+            result += chr(shifted)
+        else:
+            # Non-alphabetic characters remain the same
+            result += char
+    return result
+
+
+def caesar_decrypt(text, shift):
+    """
+    Decrypt the input text by reversing the Caesar Cipher shift.
+    """
+    return caesar_encrypt(text, -shift)  # Just reverse the shift
+
+
+def main():
+    print("====== Caesar Cipher Tool ======\n")
+    
+    # Get user choice
+    choice = input("Do you want to (E)ncrypt or (D)ecrypt? ").strip().upper()
+
+    # Validate choice
+    if choice not in ['E', 'D']:
+        print("❌ Invalid choice. Please select E for Encrypt or D for Decrypt.")
+        return
+
+    # Get message and shift value
+    message = input("Enter your message: ")
+    
+    try:
+        shift = int(input("Enter the shift value (integer): "))
+    except ValueError:
+        print("❌ Shift must be an integer.")
+        return
+
+    # Perform encryption or decryption
+    if choice == 'E':
+        encrypted = caesar_encrypt(message, shift)
+        print("🔐 Encrypted message:", encrypted)
+    else:
+        decrypted = caesar_decrypt(message, shift)
+        print("🔓 Decrypted message:", decrypted)
+
+
+if __name__ == "__main__":
+    main()
+# caesar_cipher.py
+
+def caesar_encrypt(text, shift):
+    """
+    Encrypt the input text using Caesar Cipher.
+    Only alphabetic characters are shifted; other characters remain unchanged.
+    """
+    result = ""
+    for char in text:
+        if char.isalpha():
+            # Determine ASCII base depending on case
+            shift_base = ord('A') if char.isupper() else ord('a')
+            # Shift character and wrap around using modulo 26
+            shifted = (ord(char) - shift_base + shift) % 26 + shift_base
+            result += chr(shifted)
+        else:
+            # Non-alphabetic characters remain the same
+            result += char
+    return result
+
+
+def caesar_decrypt(text, shift):
+    """
+    Decrypt the input text by reversing the Caesar Cipher shift.
+    """
+    return caesar_encrypt(text, -shift)  # Just reverse the shift
+
+
+def main():
+    print("====== Caesar Cipher Tool ======\n")
+    
+    # Get user choice
+    choice = input("Do you want to (E)ncrypt or (D)ecrypt? ").strip().upper()
+
+    # Validate choice
+    if choice not in ['E', 'D']:
+        print("❌ Invalid choice. Please select E for Encrypt or D for Decrypt.")
+        return
+
+    # Get message and shift value
+    message = input("Enter your message: ")
+    
+    try:
+        shift = int(input("Enter the shift value (integer): "))
+    except ValueError:
+        print("❌ Shift must be an integer.")
+        return
+
+    # Perform encryption or decryption
+    if choice == 'E':
+        encrypted = caesar_encrypt(message, shift)
+        print("🔐 Encrypted message:", encrypted)
+    else:
+        decrypted = caesar_decrypt(message, shift)
+        print("🔓 Decrypted message:", decrypted)
+
+
+if __name__ == "__main__":
+    main()
