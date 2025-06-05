@@ -1,0 +1,62 @@
+from PIL import Image
+
+def encrypt_image(input_path, output_path, key):
+    img = Image.open(input_path)
+    pixels = img.load()
+    
+    # Loop through each pixel and apply encryption
+    for i in range(img.size[0]):  # Width
+        for j in range(img.size[1]):  # Height
+            r, g, b = pixels[i, j]
+            # Encrypt each color component by adding the key and wrapping with % 256
+            pixels[i, j] = (
+                (r + key) % 256,
+                (g + key) % 256,
+                (b + key) % 256
+            )
+    
+    img.save(output_path)
+    print("🔐 Image encrypted and saved as:", output_path)
+
+def decrypt_image(input_path, output_path, key):
+    img = Image.open(input_path)
+    pixels = img.load()
+    
+    # Loop through each pixel and apply decryption
+    for i in range(img.size[0]):
+        for j in range(img.size[1]):
+            r, g, b = pixels[i, j]
+            # Reverse encryption by subtracting the key
+            pixels[i, j] = (
+                (r - key) % 256,
+                (g - key) % 256,
+                (b - key) % 256
+            )
+    
+    img.save(output_path)
+    print("🔓 Image decrypted and saved as:", output_path)
+
+def main():
+    print("=== Image Encryption Tool ===")
+    choice = input("Do you want to (E)ncrypt or (D)ecrypt an image? ").strip().upper()
+
+    if choice not in ['E', 'D']:
+        print("❌ Invalid choice.")
+        return
+
+    input_path = input("Enter input image file path (e.g., image.jpg): ").strip()
+    output_path = input("Enter output image file path (e.g., encrypted.png): ").strip()
+
+    try:
+        key = int(input("Enter numeric key (e.g., 10): "))
+    except ValueError:
+        print("❌ Key must be an integer.")
+        return
+
+    if choice == 'E':
+        encrypt_image(input_path, output_path, key)
+    else:
+        decrypt_image(input_path, output_path, key)
+
+if __name__ == "__main__":
+    main()
